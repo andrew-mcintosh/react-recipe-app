@@ -70,7 +70,7 @@ export default class Recipe extends Component {
               href={source_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-success mt-2 mx-2 text-capitalize"
+              className="btn btn-success mt-2 mx-2 text-slanted"
             >
               recipe url
             </a>
