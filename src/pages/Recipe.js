@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { recipeData } from "../data/tempDetails";
+// import { recipeData } from "../data/tempDetails";
 import { Link } from "react-router-dom";
 
 export default class Recipe extends Component {
@@ -7,12 +7,27 @@ export default class Recipe extends Component {
     super(props);
     const id = this.props.match.params.id;
     this.state = {
-      recipe: recipeData,
+      // recipe: recipeData,
+      recipe: {},
       id,
-      loading: false
+      loading: true
     };
   }
 
+  async componentDidMount() {
+    const url = `https://www.food2fork.com/api/get?key=ede4bc54dfd3c9ffba1389e33e5df61a&rId=${this.state.id}`;
+    console.log(url);
+    try {
+      const response = await fetch(url);
+      const responseData = await response.json();
+      this.setState({
+        recipe: responseData.recipe,
+        loading: false
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   render() {
     const {
       image_url,
@@ -47,7 +62,7 @@ export default class Recipe extends Component {
               back to recipes list
             </Link>
             <img
-              src="{image_url}"
+              src={image_url}
               alt=""
               className="d-block w-100"
               style={{ maxHeight: "30rem" }}
