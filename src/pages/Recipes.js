@@ -11,8 +11,7 @@ class Recipes extends Component {
   state = {
     recipes: recipeData,
     search: "",
-    url:
-      "https://www.food2fork.com/api/search?key=ede4bc54dfd3c9ffba1389e33e5df61a"
+    url: `https://www.food2fork.com/api/search?key=${process.env.REACT_APP_API}`
   };
 
   async getRecipes() {
@@ -20,6 +19,9 @@ class Recipes extends Component {
       const data = await fetch(this.state.url);
       const jsonData = await data.json();
       console.log(jsonData);
+      this.setState({
+        recipes: jsonData.recipes
+      });
     } catch (err) {
       console.log(err);
     }
